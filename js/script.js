@@ -24,10 +24,10 @@ const getForecast = async (searchValue) => {
       cardEl.classList.add("card", "bg-primary", "text-white");
       const windEl = document.createElement("p");
       windEl.classList.add("card-text");
-      windEl.textContent = `Wind Speed:${data.list[i].wind.speed}`;
+      windEl.textContent = `Wind Speed: ${data.list[i].wind.speed} MPH`;
       const humidityEl = document.createElement("p");
       humidityEl.classList.add("card-text");
-      humidityEl.textContent = `Humidity : ${data.list[i].main.humidity}`;
+      humidityEl.textContent = `Humidity : ${data.list[i].main.humidity} %`;
       const bodyEl = document.createElement("div");
       bodyEl.classList.add("p-2", "card-body");
       const titleEl = document.createElement("h5");
@@ -38,17 +38,17 @@ const getForecast = async (searchValue) => {
 
       const para1 = document.createElement("p");
       para1.classList.add("card-test");
-      para1.textContent = `temperature:${data.list[i].main.temp_max}`;
-      const para2 = document.createElement("p");
-      para2.classList.add("card-test");
-      para2.textContent = `humidity:${data.list[i].main.humidity}`;
+      para1.textContent = `Temperature: ${data.list[i].main.temp_max} °F`;
+      // const para2 = document.createElement("p");
+      // para2.classList.add("card-test");
+      // para2.textContent = `humidity:${data.list[i].main.humidity}`;
       colEl.appendChild(cardEl);
       bodyEl.appendChild(titleEl);
       bodyEl.appendChild(imageEl);
       bodyEl.appendChild(windEl);
       bodyEl.appendChild(humidityEl);
       bodyEl.appendChild(para1);
-      bodyEl.appendChild(para2);
+      // bodyEl.appendChild(para2);
       cardEl.appendChild(bodyEl);
       forecastEl.querySelector(".card--items").appendChild(colEl);
     }
@@ -108,6 +108,8 @@ const searchWeather = async (searchValue) => {
   titleEl.classList.add("card-title");
   titleEl.textContent = `${data.name}(${new Date().toLocaleDateString()})`;
 
+  console.log("data: ", data);
+
   const cardEl = document.createElement("div");
   cardEl.classList.add("card");
   const windEl = document.createElement("p");
@@ -116,8 +118,10 @@ const searchWeather = async (searchValue) => {
   humidityEl.classList.add("card-text");
   const tempEl = document.createElement("p");
   tempEl.classList.add("card-text");
-  humidityEl.innerHTML = `humidity <span class="text-primary bold">${data.main.humidity}</span>`;
-  tempEl.innerHTML = `temperature  <span class="text-primary bold">${data.main.temp}</span>`;
+  humidityEl.innerHTML = `Humidity <span class="text-primary bold">${data.main.humidity} %</span>`;
+  tempEl.innerHTML = `Temperature  <span class="text-primary bold">${data.main.temp} °F</span>`;
+  windEl.textContent = `Wind Speed: ${data.wind.speed} MPH`;
+
   const cardBodyEl = document.createElement("div");
   cardBodyEl.classList.add("card-body");
   const imageEl = document.createElement("img");
