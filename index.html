@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <title>My Weather Dashboard</title>
+  </head>
+
+  <body>
+    <div class="container-fluid bg-primary text-center text-white p-5">
+      <h1>My Weather Dashboard</h1>
+    </div>
+    <div class="bg-light container-fluid p-5">
+      <div class="row">
+        <section class="col-lg-2 border">
+          <h4 class="mt-1">City Search</h4>
+          <div class="form-inline form-group w-100">
+            <form id="frm_location_query">
+              <input class="form-control" type="text" id="search-value" value="madrid" name="search_value" required />
+              <button class="btn btn-primary" id="seadrch-button" type="submit"><i class="fa fa-search"></i></button>
+            </form>
+          </div>
+
+          <ul class="list-group past-search query--history--items list-unstyled" id="pass-search">
+            <p class="text-title">History</p>
+
+            <!-- <li class="query--history--item"></li> -->
+          </ul>
+        </section>
+        <div class="col-md-9">
+          <div id="today"></div>
+          <div id="forecast" class="mt-3 row"></div>
+        </div>
+      </div>
+    </div>
+    <script src="js/script.js"></script>
+  </body>
+</html>

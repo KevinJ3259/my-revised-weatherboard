@@ -1,0 +1,4 @@
+- add wind speed to current weather conditions
+- remove duplicate humidities from 5 day forecast
+- add % sign to humidities
+- add units to temp and wind speed
