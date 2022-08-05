@@ -1,3 +1,4 @@
+const APP_ID = "d91f911bcf2c0f925fb6535547a5ddc9";
 const existingHistory = JSON.parse(localStorage.getItem("past-search")) || [];
 const historyItems = [];
 
@@ -5,7 +6,7 @@ const getForecast = async (searchValue) => {
   if (!searchValue) {
     return;
   }
-  const endpoint = `https://api.openweathermap.org/data/2.5/forecast?q=${searchValue}&appid=d91f911bcf2c0f925fb6535547a5ddc9&units=imperial`;
+  const endpoint = `https://api.openweathermap.org/data/2.5/forecast?q=${searchValue}&appid=${APP_ID}&units=imperial`;
 
   const res = await fetch(endpoint);
   const data = await res.json();
@@ -39,16 +40,12 @@ const getForecast = async (searchValue) => {
       const para1 = document.createElement("p");
       para1.classList.add("card-test");
       para1.textContent = `Temperature: ${data.list[i].main.temp_max} °F`;
-      // const para2 = document.createElement("p");
-      // para2.classList.add("card-test");
-      // para2.textContent = `humidity:${data.list[i].main.humidity}`;
       colEl.appendChild(cardEl);
       bodyEl.appendChild(titleEl);
       bodyEl.appendChild(imageEl);
       bodyEl.appendChild(windEl);
       bodyEl.appendChild(humidityEl);
       bodyEl.appendChild(para1);
-      // bodyEl.appendChild(para2);
       cardEl.appendChild(bodyEl);
       forecastEl.querySelector(".card--items").appendChild(colEl);
     }
@@ -56,7 +53,7 @@ const getForecast = async (searchValue) => {
 };
 
 const getUv = async (lat, lon) => {
-  const results = await fetch(`https://api.openweathermap.org/data/2.5/uvi?appid=d91f911bcf2c0f925fb6535547a5ddc9&lat=${lat}&lon=${lon}`);
+  const results = await fetch(`https://api.openweathermap.org/data/2.5/uvi?appid=${APP_ID}&lat=${lat}&lon=${lon}`);
   const data = await results.json();
   const bodyEl = document.querySelector(".card-body");
   const uvEl = document.createElement("p");
@@ -92,7 +89,7 @@ const handleHistory = (term) => {
 };
 
 const searchWeather = async (searchValue) => {
-  const endpoint = `https://api.openweathermap.org/data/2.5/weather?q=${searchValue}&appid=d91f911bcf2c0f925fb6535547a5ddc9&units=imperial`;
+  const endpoint = `https://api.openweathermap.org/data/2.5/weather?q=${searchValue}&appid=${APP_ID}&units=imperial`;
   const res = await fetch(endpoint);
   const data = await res.json();
 
@@ -107,8 +104,6 @@ const searchWeather = async (searchValue) => {
   const titleEl = document.createElement("h5");
   titleEl.classList.add("card-title");
   titleEl.textContent = `${data.name}(${new Date().toLocaleDateString()})`;
-
-  console.log("data: ", data);
 
   const cardEl = document.createElement("div");
   cardEl.classList.add("card");
@@ -137,42 +132,18 @@ const searchWeather = async (searchValue) => {
   getUv(data.coord.lat, data.coord.lon);
 };
 
-function makeRow(searchValue) {
-  // Create a new `li` element and add classes/text to it
-  const liEl = document.createElement("li");
-  liEl.classList.add("list-group-item", "list-group-item-action");
-  liEl.id = searchValue;
-
-  const text = searchValue;
-  liEl.textContent = text;
-
-  // Select the history element and add an event to it
-  liEl.addEventListener("click", (e) => {
-    if (e.target.tagName === "LI") {
-      searchWeather(e.target.textContent);
-    }
-  });
-  document.getElementById("history").appendChild(liEl);
-}
-
-if (existingHistory && existingHistory.length > 0) {
-  existingHistory.forEach((item) => makeRow(item));
-}
 const getSearchValue = (event) => {
   event.preventDefault();
 
-  // let searchValue = document.querySelector("#search-value").value;
   const searchValue = event.target.elements.search_value.value;
 
   if (searchValue) {
     document.querySelector("#search-value").value = "";
     searchWeather(searchValue);
-    makeRow(searchValue);
   }
 };
 
 window.addEventListener("load", () => {
-  // document.querySelector("#search-button").addEventListener("click", getSearchValue);
   const form = document.querySelector("#frm_location_query");
   if (!form) alert("form not found");
 
@@ -186,15 +157,8 @@ const updateSearch = (/**@type String*/ location_query) => {
     //add to the localstorage
     location_histories.add(location_query.trim());
 
-    console.log(
-      "1: ",
-      [...location_histories].map((item) => item)
-    );
-
-    console.log("2: ", [...location_histories]);
-
     //update localStorage
-    localStorage.setItem("location_histories", JSON.stringify([...location_histories].map((item) => item)));
+    localStorage.setItem("location_histories", JSON.stringify([...location_histories]));
   }
 
   //clear previous histories on the screen
@@ -221,7 +185,7 @@ const deleteSearchHistory = (location) => {
     location_histories.delete(location);
 
     //update localStorage
-    localStorage.setItem("location_histories", JSON.stringify([...location_histories].map((item) => item)));
+    localStorage.setItem("location_histories", JSON.stringify([...location_histories]));
   }
 
   updateSearch();

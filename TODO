@@ -1,1 +1,4 @@
-- add wind speed to current weather conditions
+1. Get a new API key
+   - Sign up on https://openweathermap.org/api/one-call-api
+   - Go to your Account page under the API key tab (https://home.openweathermap.org/api_keys)
+   - Copy from there and paste into line 1 of script.js
