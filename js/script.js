@@ -1,4 +1,4 @@
-const APP_ID = "d91f911bcf2c0f925fb6535547a5ddc9";
+const APP_ID = "1aab906912a0e396e8c623bd44ac751c";
 const existingHistory = JSON.parse(localStorage.getItem("past-search")) || [];
 const historyItems = [];
 
@@ -154,17 +154,13 @@ const updateSearch = (/**@type String*/ location_query) => {
   const /**@type Set<String> */ location_histories = new Set(JSON.parse(localStorage.getItem("location_histories") ?? "[]"));
 
   if (location_query && !location_histories.has(location_query)) {
-    //add to the localstorage
     location_histories.add(location_query.trim());
 
-    //update localStorage
     localStorage.setItem("location_histories", JSON.stringify([...location_histories]));
   }
 
-  //clear previous histories on the screen
   document.querySelectorAll(".query--history--item").forEach((item) => item.remove());
 
-  //print history on the screen
   [...location_histories].forEach((location) => {
     const location_html = `
       <li class="query--history--item text-primary fa-2x d-flex">
@@ -184,12 +180,10 @@ const deleteSearchHistory = (location) => {
   if (location && location_histories.size && location_histories.has(location)) {
     location_histories.delete(location);
 
-    //update localStorage
     localStorage.setItem("location_histories", JSON.stringify([...location_histories]));
   }
 
   updateSearch();
 };
 
-//show past histories when page is started
 updateSearch();
